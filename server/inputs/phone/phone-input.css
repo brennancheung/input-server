@@ -1,0 +1,31 @@
+.red {
+	background-color: red;
+}
+
+.yellow {
+	background-color: yellow;
+}
+
+.green {
+	background-color: green;
+}
+
+.blue {
+	background-color: blue;
+}
+
+.white-text {
+	font-color: white;
+}
+
+.blue-text {
+	font-color: blue;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.margin-top-50 {
+	margin-top: 50px;
+}
