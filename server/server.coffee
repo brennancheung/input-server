@@ -3,6 +3,8 @@ faye       = require 'faye'
 express    = require 'express'
 bodyParser = require 'body-parser'
 
+SERVER_PORT = 4000
+
 app = express()
 
 app.use bodyParser.json()
@@ -26,4 +28,17 @@ server = http.createServer app
 bayeux = new faye.NodeAdapter mount: "/events", timeout: 60
 bayeux.attach server
 
-server.listen 4000
+notifyClient = bayeux.getClient()
+
+notifyClient.subscribe '/events', (msg) ->
+    console.log msg
+
+notifyClient.subscribe '/heartbeat', (msg) ->
+    console.log msg
+
+setInterval ->
+    notifyClient.publish '/heartbeat', {event: 'heartbeat', ts: (new Date()).toISOString()}
+, 10000
+
+server.listen SERVER_PORT
+console.log "Server started and listening on port #{SERVER_PORT}"
