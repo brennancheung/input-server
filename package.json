@@ -1,0 +1,29 @@
+{
+  "name": "input-server",
+  "version": "1.0.0",
+  "description": "Input Server",
+  "main": "server/server.coffee",
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:brennancheung/input-server.git"
+  },
+  "keywords": [
+    "input",
+    "server"
+  ],
+  "author": "Brennan Cheung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brennancheung/input-server/issues"
+  },
+  "homepage": "https://github.com/brennancheung/input-server",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "coffee": "^1.2.0",
+    "express": "^4.13.3",
+    "faye": "^1.1.2"
+  }
+}
