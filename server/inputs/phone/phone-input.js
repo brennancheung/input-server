@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var client = new Faye.Client("/events");
 
-    client.subscribe("/heartbeart", function (event) {
+    client.subscribe("/heartbeat", function (event) {
         console.log(event);
     });
 
