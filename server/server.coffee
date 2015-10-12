@@ -28,17 +28,21 @@ server = http.createServer app
 bayeux = new faye.NodeAdapter mount: "/events", timeout: 60
 bayeux.attach server
 
-notifyClient = bayeux.getClient()
+client = bayeux.getClient()
 
-notifyClient.subscribe '/events', (msg) ->
+client.subscribe '/events', (msg) ->
+    if msg.device is 'midi'
+        if msg.status is 'control change'
+            client.publish "/midi", status: msg.status, controller: msg.controller, value: msg.value
+
     console.log msg
 
-notifyClient.subscribe '/heartbeat', (msg) ->
+client.subscribe '/heartbeat', (msg) ->
     console.log msg
 
-setInterval ->
-    notifyClient.publish '/heartbeat', {event: 'heartbeat', ts: (new Date()).toISOString()}
-, 10000
+# setInterval ->
+    # client.publish '/heartbeat', {event: 'heartbeat', ts: (new Date()).toISOString()}
+# , 10000
 
 server.listen SERVER_PORT
 console.log "Server started and listening on port #{SERVER_PORT}"

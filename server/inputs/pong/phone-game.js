@@ -1,3 +1,14 @@
+$(document).ready(function() {
+    var client = new Faye.Client("/events");
+    client.subscribe("/midi", function(e) {
+        console.log(e);
+        console.log(paddles);
+        var paddle = paddles[e.controller];
+        var x = (e.value / 127) * canvas.width;
+        paddle.x = x;
+    });
+});
+
 // RequestAnimFrame: a browser API for getting smooth animations
 window.requestAnimFrame = (function(){
 	return  window.requestAnimationFrame       || 
@@ -182,12 +193,12 @@ function update() {
 	updateScore(); 
 	
 	// Move the paddles on mouse move
-	if(mouse.x && mouse.y) {
-		for(var i = 1; i < paddles.length; i++) {
-			p = paddles[i];
-			p.x = mouse.x - p.w/2;
-		}		
-	}
+	// if(mouse.x && mouse.y) {
+		// for(var i = 1; i < paddles.length; i++) {
+			// p = paddles[i];
+			// p.x = mouse.x - p.w/2;
+		// }		
+	// }
 	
 	// Move the ball
 	ball.x += ball.vx;
